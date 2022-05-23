@@ -12,41 +12,41 @@ $(function() {
                     // 2.重新跳转登录页面
                 location.href = '/login.html'
                     //关闭confirm询问框
-                layer.close();
+                layer.close(index);
             });
         })
 
-
-        //获取用户的基本信息
-        function getUserInfo() {
-            $.ajax({
-                method: 'GET',
-                url: '/my/userinfo',
-
-                success: function(res) {
-                    if (res.status !== 0) {
-                        return layui.layer.msg('获取用户信息失败')
-                    }
-                    //调用 renderAavatar渲染用户头像
-                    renderAavatar(res.data)
-                },
-                //无论成功还是失败,最终都会调用complete回调函数
-                // complete: function(res) {
-                //     //在complete回调函数中,可以使用res.responseJSON 拿到服务器响应的数据
-                //     console.log(res);
-                //     if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
-                //         console.log(11);
-                //         //1.强制清空token
-                //         localStorage.removeItem('token')
-                //             //2.强制跳转到登录页面
-                //         location.href = '/login.html'
-                //     }
-                // }
-            })
-        }
-
     })
-    //渲染用户的头像
+    //获取用户的基本信息
+function getUserInfo() {
+    $.ajax({
+        method: 'GET',
+        url: '/my/userinfo',
+
+        success: function(res) {
+            if (res.status !== 0) {
+                return layui.layer.msg('获取用户信息失败')
+            }
+            //调用 renderAavatar渲染用户头像
+            renderAavatar(res.data)
+        },
+        //无论成功还是失败,最终都会调用complete回调函数
+        // complete: function(res) {
+        //     //在complete回调函数中,可以使用res.responseJSON 拿到服务器响应的数据
+        //     console.log(res);
+        //     if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+        //         console.log(11);
+        //         //1.强制清空token
+        //         localStorage.removeItem('token')
+        //             //2.强制跳转到登录页面
+        //         location.href = '/login.html'
+        //     }
+        // }
+    })
+}
+
+
+//渲染用户的头像
 function renderAavatar(user) {
     //1.获取用户名称
     var name = user.nickname || user.username
